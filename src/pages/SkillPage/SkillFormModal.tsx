@@ -1,7 +1,8 @@
-import { Button, Grid, MenuItem, Stack, TextField } from "@mui/material";
+import { Button, Grid, MenuItem, TextField } from "@mui/material";
 import TextEditor from "components/inputs/TextEditor";
 import Modal, { ModalContent } from "components/modals";
 import React from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Skill } from "types/skill";
 
 export interface SkillFormModalProps {
@@ -19,7 +20,18 @@ const SkillFormModal: React.FC<SkillFormModalProps> = ({
 }) => {
   const isEdit = !!defaultValues;
 
-  const [value, setValue] = React.useState<string>("");
+  const { control, register, handleSubmit, reset } = useForm<
+    Record<string, any>
+  >({
+    defaultValues: {
+      name: defaultValues?.name || "",
+      ability: defaultValues?.ability || "str",
+      trainedOnly: defaultValues?.trainedOnly ? "yes" : "no",
+      armorCheckPenalty: defaultValues?.armorCheckPenalty || 0,
+      descriptionShort: defaultValues?.descriptionShort || "",
+      description: defaultValues?.description || "",
+    },
+  });
 
   return (
     <Modal
@@ -32,12 +44,22 @@ const SkillFormModal: React.FC<SkillFormModalProps> = ({
       maxWidth="lg"
       actions={
         <>
-          <Button fullWidth>Cancel</Button>
+          <Button fullWidth onClick={onClose}>
+            Cancel
+          </Button>
           <Button
             fullWidth
             color="success"
             variant="contained"
-            onClick={() => {}}
+            onClick={handleSubmit((data) => {
+              onSubmit({
+                ...data,
+                trainedOnly: data.trainedOnly === "yes",
+                armorCheckPenalty: parseInt(data.armorCheckPenalty, 10),
+              } as Skill);
+              reset();
+              onClose();
+            })}
           >
             {isEdit ? "Save Changes" : "Create Skill"}
           </Button>
@@ -49,20 +71,20 @@ const SkillFormModal: React.FC<SkillFormModalProps> = ({
           <Grid size={12}>
             <TextField
               fullWidth
-              name="name"
               label="Skill Name"
               variant="outlined"
               defaultValue={defaultValues?.name || ""}
               placeholder="Enter skill name"
+              {...register("name", { required: true })}
             />
           </Grid>
           <Grid size={4}>
             <TextField
               fullWidth
-              name="ability"
               label="Base Ability"
               variant="outlined"
               defaultValue={defaultValues?.ability || ""}
+              {...register("ability", { required: true })}
               select
             >
               <MenuItem value="str">Strength</MenuItem>
@@ -76,10 +98,10 @@ const SkillFormModal: React.FC<SkillFormModalProps> = ({
           <Grid size={4}>
             <TextField
               fullWidth
-              name="trainedOnly"
               label="Trained Only"
               variant="outlined"
               defaultValue={defaultValues?.trainedOnly ? "yes" : "no"}
+              {...register("trainedOnly", { required: true })}
               select
             >
               <MenuItem value={"yes"}>Yes</MenuItem>
@@ -89,27 +111,36 @@ const SkillFormModal: React.FC<SkillFormModalProps> = ({
           <Grid size={4}>
             <TextField
               fullWidth
-              name="armorCheckPenalty"
+              type="number"
               label="Armor Check Penalty"
               variant="outlined"
               defaultValue={defaultValues?.armorCheckPenalty}
-              type="number"
+              {...register("armorCheckPenalty", { required: true })}
             />
           </Grid>
           <Grid size={12}>
             <TextField
               fullWidth
-              name="descriptionShort"
+              multiline
+              rows={4}
               label="Short Description"
               variant="outlined"
               defaultValue={defaultValues?.descriptionShort || ""}
               placeholder="Enter a short description of the skill"
-              multiline
-              rows={4}
+              {...register("descriptionShort", { required: true })}
             />
           </Grid>
           <Grid size={12}>
-            <TextEditor />
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <TextEditor
+                  value={field.value}
+                  onChange={(value) => field.onChange(value)}
+                />
+              )}
+            />
           </Grid>
         </Grid>
       </ModalContent>

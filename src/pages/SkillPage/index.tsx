@@ -22,28 +22,44 @@ const SkillPage: React.FC<SkillPageProps> = () => {
   const [formOpen, setFormOpen] = React.useState(false);
 
   React.useEffect(() => {
-    if (!skillId) {
-      setError(true);
-      setLoading(false);
-      return;
-    }
-    setLoading(true);
-    apiClient
-      .get(apiRoutes.skills.byId(skillId))
-      .then((response) => {
-        if (response.status === 200) {
-          setSkill(response.data);
-        } else {
+    if (skillId) {
+      setLoading(true);
+      apiClient
+        .get(apiRoutes.skills.byId(skillId))
+        .then((response) => {
+          if (response.status === 200) {
+            setSkill(response.data);
+          } else {
+            setError(true);
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching skills:", err);
           setError(true);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching skills:", err);
-        setError(true);
-        setLoading(false);
-      });
+          setLoading(false);
+        });
+    }
   }, [skillId]);
+
+  const onSubmitSkillUpdate = (data: Skill) => {
+    if (skillId) {
+      apiClient
+        .put(apiRoutes.skills.byId(skillId), data)
+        .then((response) => {
+          if (response.status === 200) {
+            setSkill(response.data);
+            setFormOpen(false);
+          } else {
+            setError(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Error updating skill:", err);
+          setError(true);
+        });
+    }
+  };
 
   if (loading) return <Loader />;
   if (error) return <ErrorAlert error={"Failed to fetch skill"} />;
@@ -54,13 +70,9 @@ const SkillPage: React.FC<SkillPageProps> = () => {
         defaultValues={skill}
         open={formOpen}
         onClose={() => setFormOpen(false)}
-        onSubmit={(data) => console.log(data)}
+        onSubmit={onSubmitSkillUpdate}
       />
-      <Actions
-        onDelete={() => {}}
-        onEdit={() => setFormOpen(true)}
-        onAdd={() => {}}
-      />
+      <Actions onDelete={() => {}} onEdit={() => setFormOpen(true)} />
       <SkillView data={skill} />
     </Stack>
   );

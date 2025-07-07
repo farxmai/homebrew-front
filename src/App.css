@@ -50,6 +50,39 @@ a:hover {
   border-radius: 10px;
 }
 
+.rawText {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #dfe3e8;
+}
+
+.rawText strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.rawText table {
+  width: 100%;
+  border: 2px solid #1b232d;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.rawText tr:nth-child(even) {
+  background-color: #212b36;
+}
+
+.rawText tr:nth-child(odd) {
+  background-color: #161c24;
+}
+
+.rawText th,
+.rawText td {
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  padding: 8px;
+  text-align: left;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
