@@ -1,0 +1,37 @@
+.html-parsed {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #dfe3e8;
+}
+
+.html-parsed strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.html-parsed table {
+  width: 100%;
+  border: 2px solid #1b232d;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.html-parsed tr:nth-child(even) {
+  background-color: #212b36;
+}
+
+.html-parsed tr:nth-child(odd) {
+  background-color: #161c24;
+}
+
+.html-parsed th,
+.html-parsed td {
+  font-size: 12px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  padding: 8px;
+  text-align: left;
+}
+
+.html-parsed td:not(:first-of-type) {
+  border-left: 1px solid rgba(224, 224, 224, 1);
+}

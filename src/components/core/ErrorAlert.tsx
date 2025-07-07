@@ -8,7 +8,7 @@ export interface ErrorAlertProps {
 const ErrorAlert: React.FC<ErrorAlertProps> = ({ error }) => {
   if (!error) return null;
   return (
-    <Alert severity="error">
+    <Alert severity="error" variant="outlined">
       <AlertTitle>Error</AlertTitle>
       {error}
     </Alert>

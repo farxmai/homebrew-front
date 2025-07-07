@@ -3,17 +3,19 @@ import Actions from "components/core/Actions";
 import ErrorAlert from "components/core/ErrorAlert";
 import Loader from "components/core/Loader";
 import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Skill } from "types/skill";
 import apiRoutes from "utils/api/apiRoutes";
 import apiClient from "utils/api/axios";
 import SkillView from "./SkillView";
 import SkillFormModal from "./SkillFormModal";
+import { navigation } from "router/routes";
 
 export interface SkillPageProps {}
 
 const SkillPage: React.FC<SkillPageProps> = () => {
   const params = useParams();
+  const nav = useNavigate();
   const skillId = params.id;
 
   const [loading, setLoading] = React.useState(true);
@@ -61,6 +63,25 @@ const SkillPage: React.FC<SkillPageProps> = () => {
     }
   };
 
+  const onSubmitSkillDelete = () => {
+    if (skillId) {
+      apiClient
+        .delete(apiRoutes.skills.byId(skillId))
+        .then((response) => {
+          if (response.status === 204) {
+            setFormOpen(false);
+            nav(navigation.getSkills());
+          } else {
+            setError(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Error updating skill:", err);
+          setError(true);
+        });
+    }
+  };
+
   if (loading) return <Loader />;
   if (error) return <ErrorAlert error={"Failed to fetch skill"} />;
   if (!skill) return <ErrorAlert error={"Skill not found"} />;
@@ -72,7 +93,10 @@ const SkillPage: React.FC<SkillPageProps> = () => {
         onClose={() => setFormOpen(false)}
         onSubmit={onSubmitSkillUpdate}
       />
-      <Actions onDelete={() => {}} onEdit={() => setFormOpen(true)} />
+      <Actions
+        onDelete={() => onSubmitSkillDelete()}
+        onEdit={() => setFormOpen(true)}
+      />
       <SkillView data={skill} />
     </Stack>
   );

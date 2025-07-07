@@ -39,6 +39,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiAlert: {
+      styleOverrides: {
+        outlined: {
+          backgroundColor: palette.grey[900] + "A4",
+        },
+      },
+    },
     MuiTable: {
       styleOverrides: {
         root: {

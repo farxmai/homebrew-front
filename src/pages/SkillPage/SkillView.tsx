@@ -1,6 +1,5 @@
 import { AutoStories } from "@mui/icons-material";
 import {
-  Box,
   Card,
   Chip,
   Grid,
@@ -12,17 +11,16 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import HtmlParser from "components/HtmlParser";
 import { abilitiesNames } from "constants/abilities";
 import React from "react";
 import { Skill } from "types/skill";
-import DOMPurify from "dompurify";
 
 export interface SkillViewProps {
   data: Skill;
 }
 
 const SkillView: React.FC<SkillViewProps> = ({ data }) => {
-  const cleanHtml = DOMPurify.sanitize(data.description);
   return (
     <Card>
       <Stack spacing={5} direction={"column"}>
@@ -72,11 +70,7 @@ const SkillView: React.FC<SkillViewProps> = ({ data }) => {
             </Table>
           </Grid>
         </Grid>
-
-        <div
-          className="rawText"
-          dangerouslySetInnerHTML={{ __html: cleanHtml }}
-        />
+        <HtmlParser html={data.description} />
       </Stack>
     </Card>
   );
