@@ -20,6 +20,18 @@ body::before {
   z-index: 0;
 }
 
+a {
+  color: inherit;
+  font-style: italic;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #8f9caa;
+  text-decoration: underline;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -36,4 +48,19 @@ body::before {
   box-shadow: inset 0 0 7px #161c24;
   background: #454f5b;
   border-radius: 10px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes opacity {
+  50% {
+    opacity: 0.1;
+  }
 }

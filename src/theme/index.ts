@@ -22,6 +22,23 @@ const theme = createTheme({
   palette: palette,
   typography: typography,
   components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.grey[900] + "A4",
+          borderColor: palette.grey[500],
+          borderStyle: "solid",
+          borderWidth: 1,
+          color: palette.grey[200],
+          borderRadius: 8,
+          padding: spacing[5],
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+          },
+        },
+      },
+    },
     MuiTable: {
       styleOverrides: {
         root: {
@@ -42,20 +59,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "tr:nth-child(even)": {
-            backgroundColor: "#1b232d",
+            backgroundColor: palette.grey[800],
           },
           "tr:nth-child(odd)": {
             backgroundColor: palette.grey[900],
           },
-        },
-      },
-    },
-    MuiTableCell: {
-      styleOverrides: {
-        root: {
-          borderBottom: 0,
-          color: palette.grey[200],
-          fontSize: 16,
         },
       },
     },
@@ -300,22 +308,57 @@ const theme = createTheme({
         },
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: palette.grey[800],
+          color: palette.grey[200],
+          borderRadius: 8,
+          padding: 0,
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
-        outlined: {
-          borderColor: palette.grey[600],
-          color: palette.grey[600],
-          "&:disabled": {
-            opacity: 0.5,
-          },
-          "&:hover": {
-            borderColor: palette.grey[500],
-            color: palette.grey[500],
-          },
-          "&:active": {
-            borderColor: palette.grey[500],
-            color: palette.grey[500],
-          },
+        root: {
+          minWidth: 0,
+          textTransform: "none",
+          variants: [
+            {
+              props: { variant: "outlined", color: "primary" },
+              style: {
+                borderColor: palette.grey[600],
+                color: palette.grey[600],
+                "&:disabled": {
+                  opacity: 0.5,
+                },
+                "&:hover": {
+                  borderColor: palette.grey[500],
+                  color: palette.grey[500],
+                },
+                "&:active": {
+                  borderColor: palette.grey[500],
+                  color: palette.grey[500],
+                },
+              },
+            },
+          ],
+        },
+        sizeSmall: {
+          padding: "2px 6px",
+          fontSize: "0.80rem",
+        },
+        sizeMedium: {
+          padding: "4px 8px",
+          fontSize: "0.90rem",
+        },
+        sizeLarge: {
+          padding: "6px 12px",
+          fontSize: "1rem",
         },
       },
     },
