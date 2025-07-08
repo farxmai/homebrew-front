@@ -1,0 +1,121 @@
+{
+  "base": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "abilitiesNames": {
+    "str": "Strength",
+    "dex": "Dexterity",
+    "con": "Constitution",
+    "int": "Intelligence",
+    "wis": "Wisdom",
+    "cha": "Charisma"
+  },
+  "homepage": {
+    "title": "Welcome to the Homebrew",
+    "description": "This is the main content area of the homepage. This platform was created to support most common rules for D&D 3.5 companies with our small additions. Here you can find various information and links to other sections of the application.",
+    "coreRules": {
+      "title": "Core Rules",
+      "description": "This section contains the core rules of D&D 3.5, including the Player's Handbook, Dungeon Master's Guide, and Monster Manual.",
+      "urls": {
+        "baseRules": "Base Rules",
+        "races": "Races",
+        "classes": "Classes",
+        "feats": "Feats",
+        "skills": "Skills",
+        "spells": "Spells",
+        "equipment": "Equipment",
+        "magicItems": "Magic Items",
+        "monsters": "Monsters"
+      }
+    }
+  },
+  "skillsPage": {
+    "title": "Skills",
+    "description": "This page contains a list of skills available in D&D 3.5, along with their descriptions and mechanics."
+  },
+  "skillPage": {
+    "skillDetails": {
+      "name": "Skill Name",
+      "description": "Skill Description",
+      "ability": "Associated Ability",
+      "trainedOnly": "Trained Only",
+      "armorCheckPenalty": "Armor Penalty"
+    },
+    "form": {
+      "titleCreate": "Create Skill",
+      "titleEdit": "Edit Skill",
+      "subtitleCreate": "Fill in the details below to create a new skill.",
+      "subtitleEdit": "Fill in the details below to edit the skill.",
+      "original": "Original",
+      "translation": "Translation (ru)",
+      "fields": {
+        "name": "Skill Name",
+        "descriptionShort": "Short Description",
+        "ability": "Associated Ability",
+        "trainedOnly": "Trained Only",
+        "armorCheckPenalty": "Armor Check Penalty",
+        "source": "Source"
+      },
+      "validation": {
+        "required": {
+          "name": "Name is required.",
+          "description": "Description is required."
+        }
+      }
+    }
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Go Back"
+  },
+  "actions": {
+    "create": "Create New",
+    "update": "Update",
+    "delete": "Delete",
+    "view": "View Details",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close",
+    "search": "Search",
+    "reset": "Reset",
+    "apply": "Apply",
+    "download": "Download",
+    "upload": "Upload",
+    "export": "Export",
+    "import": "Import",
+    "select": "Select"
+  },
+  "errors": {
+    "label": "Error",
+    "notFound": "Page not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Forbidden access",
+    "serverError": "Internal server error"
+  },
+  "modals": {
+    "delete": {
+      "title": "Delete Confirmation",
+      "subtitle": "This action cannot be undone.",
+      "message": "Are you sure you want to delete this item?",
+      "confirm": "Yes, Delete",
+      "cancel": "No, Cancel"
+    },
+    "edit": {
+      "title": "Edit Item",
+      "message": "Please edit the details of the item."
+    },
+    "create": {
+      "title": "Create New Item",
+      "message": "Please fill in the details for the new item."
+    }
+  },
+  "forms": {
+    "name": "Name",
+    "description": "Description"
+  }
+}

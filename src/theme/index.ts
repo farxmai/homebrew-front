@@ -369,6 +369,25 @@ const theme = createTheme({
         },
       },
     },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          fontSize: "0.9rem",
+          minWidth: 72,
+          padding: "5px 20px",
+          "&.Mui-selected": {
+            backgroundColor: palette.primary.dark + "A2",
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+          },
+          // "&:hover": {
+          //   backgroundColor: palette.primary.lighter,
+          //   color: palette.primary.contrastText,
+          // },
+        },
+      },
+    },
   },
 });
 

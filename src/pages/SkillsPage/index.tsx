@@ -1,7 +1,8 @@
-import { Card, Stack, Typography } from "@mui/material";
+import { Card, Stack, Tooltip, Typography } from "@mui/material";
 import Actions from "components/core/Actions";
 import ErrorAlert from "components/core/ErrorAlert";
 import Loader from "components/core/Loader";
+import { useLang } from "hooks/useLang";
 import SkillFormModal from "pages/SkillPage/SkillFormModal";
 import React from "react";
 import { Link, useNavigate } from "react-router";
@@ -13,12 +14,23 @@ import apiClient from "utils/api/axios";
 export interface SkillsPageProps {}
 
 const SkillsPage: React.FC<SkillsPageProps> = () => {
+  const { t, lang } = useLang();
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
-  const [skills, setSkills] = React.useState<any[]>([]);
+  const [skills, setSkills] = React.useState<Skill[]>([]);
   const [formOpen, setFormOpen] = React.useState(false);
 
   const navigate = useNavigate();
+
+  const renderSkills = skills.map((skill) => ({
+    id: skill.id,
+    name:
+      skill.translations?.find((trans) => trans.locale === lang)?.name ||
+      skill.id,
+    descriptionShort:
+      skill.translations?.find((trans) => trans.locale === lang)
+        ?.descriptionShort || skill.id,
+  }));
 
   React.useEffect(() => {
     setLoading(true);
@@ -67,11 +79,16 @@ const SkillsPage: React.FC<SkillsPageProps> = () => {
         onSubmit={onSubmitSkillCreate}
       />
       <Card>
-        <Typography variant="h1">Skills</Typography>
+        <Typography variant="h1">{t("skillsPage.title")}</Typography>
+        <Typography variant="body1">{t("skillsPage.description")}</Typography>
         <ul>
-          {skills.map((skill) => (
+          {renderSkills.map((skill) => (
             <li key={skill.id}>
-              <Link to={`${navigation.getSkill(skill.id)}`}>{skill.name}</Link>
+              <Tooltip title={skill.descriptionShort} placement="right-start">
+                <Link to={`${navigation.getSkill(skill.id)}`}>
+                  {skill.name}
+                </Link>
+              </Tooltip>
             </li>
           ))}
         </ul>

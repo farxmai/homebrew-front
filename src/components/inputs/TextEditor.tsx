@@ -14,14 +14,17 @@ import {
   List,
   Table,
   TableToolbar,
-  Image,
-  ImageUpload,
+  ImageBlock,
+  ImageInline,
+  ImageInsert,
   ImageResize,
   ImageToolbar,
+  ImageUpload,
   Link,
   FontColor,
   FontBackgroundColor,
   Alignment,
+  Undo,
 } from "ckeditor5";
 
 import "ckeditor5/ckeditor5.css";
@@ -29,9 +32,10 @@ import "ckeditor5/ckeditor5.css";
 export interface TextEditorProps {
   value?: string;
   onChange?: (value: string) => void;
+  defaultValue?: string;
 }
 
-const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
+const TextEditor: FC<TextEditorProps> = ({ value, onChange, defaultValue }) => {
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -41,28 +45,32 @@ const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
         onChange && onChange(data);
       }}
       config={{
+        initialData: defaultValue || value,
         licenseKey: "GPL",
         plugins: [
-          Heading,
-          List,
-          Table,
-          TableToolbar,
-          Image,
-          ImageToolbar,
-          Link,
           Essentials,
           Paragraph,
+          Heading,
           Bold,
           Italic,
-          Superscript,
-          Subscript,
           Underline,
           Strikethrough,
+          Superscript,
+          Subscript,
           FontColor,
           FontBackgroundColor,
           Alignment,
-          ImageUpload,
+          List,
+          Table,
+          TableToolbar,
+          ImageBlock,
+          ImageInline,
+          ImageInsert,
           ImageResize,
+          ImageToolbar,
+          ImageUpload,
+          Link,
+          Undo,
         ],
         toolbar: [
           "heading",
@@ -86,24 +94,13 @@ const TextEditor: FC<TextEditorProps> = ({ value, onChange }) => {
           "numberedList",
           "|",
           "insertTable",
-          "image",
+          "insertImage",
           "|",
           "link",
           "|",
           "undo",
           "redo",
         ],
-        image: {
-          toolbar: [
-            "imageStyle:full",
-            "imageStyle:side",
-            "imageTextAlternative",
-            "ckboxImageEdit",
-          ],
-        },
-        table: {
-          contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-        },
       }}
     />
   );

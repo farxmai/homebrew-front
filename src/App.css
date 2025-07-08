@@ -32,6 +32,11 @@ a:hover {
   text-decoration: underline;
 }
 
+/* For CKEditor */
+.ck-editor__editable_inline {
+  min-height: 300px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

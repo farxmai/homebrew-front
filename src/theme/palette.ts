@@ -29,6 +29,7 @@ export const PRIMARY = {
   main: GREY[800],
   dark: GREY[900],
   darker: GREY[900],
+  contrastText: "#fff",
 };
 export const SECONDARY = {
   lighter: "#fbf2e1",

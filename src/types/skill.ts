@@ -9,4 +9,11 @@ export interface Skill {
   ability: Ability;
   trainedOnly: boolean;
   armorCheckPenalty: number;
+  translations?: {
+    id?: number;
+    locale: string;
+    name: string;
+    description: string;
+    descriptionShort: string;
+  }[];
 }

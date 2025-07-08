@@ -6,6 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Button, ButtonGroup, Card, Stack, Tooltip } from "@mui/material";
 import Modal, { ModalAlert } from "components/modals";
+import { useLang } from "hooks/useLang";
 import React from "react";
 import { useNavigate } from "react-router";
 
@@ -22,13 +23,14 @@ const Actions: React.FC<ActionsProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const { t } = useLang();
   const nav = useNavigate();
   const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
 
   return (
     <Card>
       <Modal
-        title="Delete Confirmation"
+        title={t("modals.delete.title")}
         open={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
         maxWidth="sm"
@@ -40,7 +42,7 @@ const Actions: React.FC<ActionsProps> = ({
               color="secondary"
               onClick={() => setDeleteModalOpen(false)}
             >
-              Cancel
+              {t("buttons.cancel")}
             </Button>
             <Button
               fullWidth
@@ -53,14 +55,14 @@ const Actions: React.FC<ActionsProps> = ({
                 setDeleteModalOpen(false);
               }}
             >
-              Delete
+              {t("buttons.delete")}
             </Button>
           </>
         }
       >
         <ModalAlert
-          title="Are you sure you want tot delete it?"
-          subtitle="This action cannot be undone."
+          title={t("modals.delete.title")}
+          subtitle={t("modals.delete.subtitle")}
           variant="error"
         />
       </Modal>
@@ -73,7 +75,7 @@ const Actions: React.FC<ActionsProps> = ({
             startIcon={<ArrowCircleLeftOutlined />}
             onClick={() => nav(-1)}
           >
-            Go Back
+            {t("buttons.back")}
           </Button>
         ) : (
           <Box />

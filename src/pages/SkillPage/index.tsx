@@ -10,16 +10,18 @@ import apiClient from "utils/api/axios";
 import SkillView from "./SkillView";
 import SkillFormModal from "./SkillFormModal";
 import { navigation } from "router/routes";
+import { useLang } from "hooks/useLang";
 
 export interface SkillPageProps {}
 
 const SkillPage: React.FC<SkillPageProps> = () => {
+  const { t } = useLang();
   const params = useParams();
   const nav = useNavigate();
   const skillId = params.id;
 
   const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState<any>(null);
   const [skill, setSkill] = React.useState<Skill | null>(null);
   const [formOpen, setFormOpen] = React.useState(false);
 
@@ -32,13 +34,18 @@ const SkillPage: React.FC<SkillPageProps> = () => {
           if (response.status === 200) {
             setSkill(response.data);
           } else {
-            setError(true);
+            setError({
+              message: "Failed to fetch skill",
+              status: response.status,
+            });
           }
           setLoading(false);
         })
         .catch((err) => {
-          console.error("Error fetching skills:", err);
-          setError(true);
+          setError({
+            message: err.response.data.message,
+            status: err.response?.status || 500,
+          });
           setLoading(false);
         });
     }
@@ -53,12 +60,17 @@ const SkillPage: React.FC<SkillPageProps> = () => {
             setSkill(response.data);
             setFormOpen(false);
           } else {
-            setError(true);
+            setError({
+              message: "Failed to update skill",
+              status: response.status,
+            });
           }
         })
         .catch((err) => {
-          console.error("Error updating skill:", err);
-          setError(true);
+          setError({
+            message: err.response.data.message,
+            status: err.response?.status || 500,
+          });
         });
     }
   };
@@ -72,19 +84,24 @@ const SkillPage: React.FC<SkillPageProps> = () => {
             setFormOpen(false);
             nav(navigation.getSkills());
           } else {
-            setError(true);
+            setError({
+              message: "Failed to delete skill",
+              status: response.status,
+            });
           }
         })
         .catch((err) => {
-          console.error("Error updating skill:", err);
-          setError(true);
+          setError({
+            message: err.response.data.message,
+            status: err.response?.status || 500,
+          });
         });
     }
   };
 
   if (loading) return <Loader />;
   if (error) return <ErrorAlert error={"Failed to fetch skill"} />;
-  if (!skill) return <ErrorAlert error={"Skill not found"} />;
+  if (!skill) return <ErrorAlert error={t("errors.notFound")} />;
   return (
     <Stack spacing={5} direction={"column"} component={"section"}>
       <SkillFormModal
