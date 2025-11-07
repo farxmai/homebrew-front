@@ -1,13 +1,15 @@
-declare module "@mui/material/styles/createPalette" {
-  interface SimplePaletteColorOptions {
-    lighter: string;
-    darker: string;
-  }
-  interface PaletteColor {
-    lighter: string;
-    darker: string;
-  }
-}
+// declare module "@mui/material/styles/createPalette" {
+//   interface SimplePaletteColorOptions {
+//     lighter: string;
+//     darker: string;
+//   }
+//   interface PaletteColor {
+//     lighter: string;
+//     darker: string;
+//   }
+// }
+
+import { createTheme } from "@mui/material";
 
 // SETUP COLORS
 
@@ -67,15 +69,32 @@ export const ERROR = {
   darker: "#7A0C2E",
 };
 
-const palette = {
-  common: { black: "#000", white: "#fff" },
-  primary: { ...PRIMARY },
-  secondary: { ...SECONDARY },
-  info: { ...INFO },
-  success: { ...SUCCESS },
-  warning: { ...WARNING },
-  error: { ...ERROR },
-  grey: { ...GREY },
-};
+// const palette = {
+//   common: { black: "#000", white: "#fff" },
+//   primary: { ...PRIMARY },
+//   secondary: { ...SECONDARY },
+
+//   grey: { ...GREY },
+// };
+
+const palette = createTheme({
+  palette: {
+    mode: "dark",
+    divider: GREY[500],
+    primary: {
+      main: "#161C24",
+      contrastText: "#919EAB",
+    },
+    secondary: {
+      main: "#919EAB",
+      contrastText: "#161C24",
+    },
+    info: { ...INFO },
+    success: { ...SUCCESS },
+    warning: { ...WARNING },
+    error: { ...ERROR },
+    grey: { ...GREY },
+  },
+}).palette;
 
 export default palette;

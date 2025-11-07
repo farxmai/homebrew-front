@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import HtmlParser from "components/parser/HtmlParser";
-import { abilitiesNames } from "constants/abilities";
 import { useLang } from "hooks/useLang";
 import React, { useMemo } from "react";
 import { Skill } from "types/skill";
@@ -45,7 +44,7 @@ const SkillView: React.FC<SkillViewProps> = ({ data }) => {
           ? enTrans?.description || data.description
           : ruTrans?.description || data.description,
       source: data.source,
-      ability: abilitiesNames[data.ability],
+      ability: t(`abilitiesNames.${data.ability}`),
       trainedOnly: t(`base.${data.trainedOnly ? "yes" : "no"}`),
       armorCheckPenalty: data.armorCheckPenalty || "-",
     }),

@@ -105,6 +105,7 @@ const Modal: React.FC<ModalProps> = ({
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
       maxWidth={maxWidth}
+      sx={{ overflow: "hidden" }}
       fullWidth
     >
       <DialogTitle id="modal-title">

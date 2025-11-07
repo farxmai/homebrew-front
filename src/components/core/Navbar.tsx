@@ -3,6 +3,7 @@ import { AppBar, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import DiceIcon from "components/icons/DiceIcon";
 import { useLang } from "hooks/useLang";
 import React from "react";
+import { Link } from "react-router";
 
 export interface NavbarProps {}
 
@@ -11,19 +12,29 @@ const Navbar: React.FC<NavbarProps> = () => {
     <AppBar position="static" color="primary">
       <Toolbar sx={{ px: 5 }}>
         <Stack direction={"row"} justifyContent={"space-between"} width="100%">
-          <Stack direction={"row"} alignItems="center">
-            <Typography
-              variant="h5"
-              sx={{
-                display: "inline-flex",
-                alignItems: "center",
-                fontWeight: 900,
-              }}
-            >
-              <DiceIcon style={{ width: 35, height: 35, marginRight: 5 }} />
-              Homebrew
-            </Typography>
-          </Stack>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              textTransform: "none",
+              fontStyle: "inherit",
+              color: "inherit",
+            }}
+          >
+            <Stack direction={"row"} alignItems="center">
+              <Typography
+                variant="h5"
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  fontWeight: 900,
+                }}
+              >
+                <DiceIcon style={{ width: 35, height: 35, marginRight: 5 }} />
+                Homebrew
+              </Typography>
+            </Stack>
+          </Link>
           <LanguageToggle />
           {/* <IconButton>
             <Menu />
